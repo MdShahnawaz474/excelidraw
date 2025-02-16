@@ -20,9 +20,6 @@ importers:
 
   apps/http-backend:
     dependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
@@ -41,6 +38,13 @@ importers:
       ws:
         specifier: ^8.18.0
         version: 8.18.0
+    devDependencies:
+      '@repo/common-backend':
+        specifier: workspace:*
+        version: link:../../packages/common-backend
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
 
   apps/web:
     dependencies:
@@ -81,9 +85,9 @@ importers:
 
   apps/ws-backend:
     dependencies:
-      '@repo/typescript-config':
+      '@repo/common-backend':
         specifier: workspace:*
-        version: link:../../packages/typescript-config
+        version: link:../../packages/common-backend
       '@types/jsonwebtoken':
         specifier: ^9.0.8
         version: 9.0.8
@@ -96,6 +100,19 @@ importers:
       ws:
         specifier: ^8.18.0
         version: 8.18.0
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+
+  packages/common-backend:
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.13.4
 
   packages/eslint-config:
     devDependencies:
@@ -489,6 +506,9 @@ packages:
 
   '@types/node@22.13.0':
     resolution: {integrity: sha512-ClIbNe36lawluuvq3+YYhnIN2CELi+6q8NpnM7PYp4hBn/TatfboPgVSm2rwKRfnV2M+Ty9GWDFI64KEe+kysA==}
+
+  '@types/node@22.13.4':
+    resolution: {integrity: sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg==}
 
   '@types/qs@6.9.18':
     resolution: {integrity: sha512-kK7dgTYDyGqS+e2Q4aK9X3D7q234CIZ1Bv0q/7Z5IwRDoADNU81xXJK/YVyLbLTZCoIwUoDoffFeF+p/eIklAA==}
@@ -2658,6 +2678,10 @@ snapshots:
   '@types/ms@2.1.0': {}
 
   '@types/node@22.13.0':
+    dependencies:
+      undici-types: 6.20.0
+
+  '@types/node@22.13.4':
     dependencies:
       undici-types: 6.20.0
 
