@@ -8,6 +8,7 @@ export  function middleware (req:Request,res:Response,next:NextFunction){
     if(decoded ){
         // @ts-ignore: TODO: Fix this
         req.userId = decoded.userId
+        next()
     }else{
         res.status(403).json({
             message:"Unauthorized"
