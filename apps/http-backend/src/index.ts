@@ -4,7 +4,12 @@ import { JWT_SECRET } from "@repo/common-backend/config";
 import { middleware } from "./middleware";
 import { CreateRoomSchema, CreateUserSchema, SiginSchema } from "@repo/common/types";
 import { prismaClient } from "@repo/db/client";
+import cors from "cors"
+
+
 const app = express();
+const PORT = 8000;
+app.use(cors())
 
 app.use(express.json());
 app.post("/signup", async(req, res) => {
@@ -107,28 +112,32 @@ app.post("/room", middleware, async (req, res) => {
     }
    
 });
-
-app.get("/room/:roomId",(req,res)=>{
+app.get("/chats/:roomId", async (req, res) => {
   try {
-    const roomId =  Number(req.params.roomId)
-    const messages = prismaClient.chat.findMany({
-       where:{
-         roomId:roomId
-       },
-       orderBy:{
-         id:"desc"
-       },
-       take:50
-     })
-     res.json({
-       messages
-     })
-  } catch (error) {
-    res.json({message:[]})
-    
+      const roomId = Number(req.params.roomId);
+      console.log(req.params.roomId);
+      const messages = await prismaClient.chat.findMany({
+          where: {
+              roomId: roomId
+          },
+          orderBy: {
+              id: "desc"
+          },
+          take: 100
+      });
+
+      res.json({
+          messages
+      })
+  } catch(e) {
+      console.log(e);
+      res.json({
+          messages: []
+      })
   }
- 
-});
+  
+})
+//Here the slug means name of the room 
 
 app.get("/chats/:slug",async  (req,res)=>{
   const slug =req.params.slug;
@@ -137,12 +146,14 @@ app.get("/chats/:slug",async  (req,res)=>{
       slug
     }
   });
+   
+  
 
   res.json({
     room
   })
 })
 
-app.listen(3001, () => {
-  console.log("Backend is listening PORT 3001 ");
+app.listen(PORT, () => {
+  console.log(`Backend is listening PORT ${PORT} `);
 });

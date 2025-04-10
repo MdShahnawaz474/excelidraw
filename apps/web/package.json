@@ -12,10 +12,7 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
-<<<<<<< HEAD
     "axios": "^1.8.4",
-=======
->>>>>>> 407df8b19e4905ae7354cbd2381f196e4a560050
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
